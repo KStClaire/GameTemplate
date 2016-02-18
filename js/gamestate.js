@@ -8,23 +8,21 @@ var GameStates = {
 function changeState (gamestate) {
     switch(gamestate) {
         case GameStates.MAIN_MENU:
-                stage.addChild(titleScreen);
-                startGame();
+               startGame();
             break;
         case GameStates.INSTRUCTIONS:
-                stage.addChild(instructionScreen);
-
+              //  stage.addChild(instructionScreen);
+               // info();
             break;
         case GameStates.PLAY_GAME:
-                stage.addChild(backgroundScreen);
+              //  stage.addChild(backgroundScreen);
                 playGame();
-                
 
             break;
         case GameStates.GAME_OVER:
-                stage.addChild(gameoverScreen);
-                gameOver();
+              //  stage.addChild(gameoverScreen);
                 displayScore();
+                gameOver();
             break;
         default:
             console.log("defaulted");

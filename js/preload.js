@@ -1,3 +1,8 @@
+var date = new Date();
+var cacheVersion = date.getTime();
+
+var jsEnd = ".js?a=" + cacheVersion;
+
 manifest = [
     {src:"title.jpg", id:"title"},
     {src:"background.jpg", id:"background"},

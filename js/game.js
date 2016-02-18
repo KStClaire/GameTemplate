@@ -1,49 +1,3 @@
-var stage;
-var myText;
-var circle;
-
-function setupCanvas() {
-    var canvas = document.getElementById("game"); //get canvas with id='game'
-    canvas.width = 800;
-    canvas.height = 600;
-    stage = new createjs.Stage(canvas); //makes stage object from the canvas
-}
-
-var mouseX, mouseY;
-function mouseInit() {
-    stage.on("stagemousemove", function(evt) {
-        mouseX = Math.floor(evt.stageX);
-        mouseY = Math.floor(evt.stageY);
-    });
-}
-
-var KEYCODE_LEFT = 65;
-var KEYCODE_UP = 87;
-var KEYCODE_RIGHT = 68;
-var KEYCODE_DOWN = 83;
-function handleKeyDown(evt) {
-    if(!evt){ var evt = window.event; }  //browser compatibility
-    switch(evt.keyCode) {
-        case KEYCODE_LEFT:  console.log(evt.keyCode+" a down"); return false;
-        case KEYCODE_RIGHT: console.log(evt.keyCode+" d down"); return false;
-        case KEYCODE_UP:    console.log(evt.keyCode+" w down"); return false;
-        case KEYCODE_DOWN:  console.log(evt.keyCode+" s down"); return false;
-    }
-}
-//function handleKeyUp(evt) {
-//    if(!evt){ var evt = window.event; }  //browser compatibility
-//    switch(evt.keyCode) {
-//        case KEYCODE_LEFT:	console.log(evt.keyCode+" up"); break;
-//        case KEYCODE_RIGHT: console.log(evt.keyCode+" up"); break;
-//        case KEYCODE_UP:	console.log(evt.keyCode+" up"); break;
-//        case KEYCODE_DOWN:	console.log(evt.keyCode+" up"); break;
-//    }
-//}
-document.onkeydown = handleKeyDown;
-//document.onkeyup = handleKeyUp;
-
-
-
 function drawPlayButton() {
     playbtn = new createjs.Shape(); 
     playbtn.graphics.beginFill("#009933").drawRoundRect(350, 350, 100, 40,10); 
@@ -88,12 +42,12 @@ function drawMenuButton() {
     
     stage.enableMouseOver();
                     
-    menubtn.on("click", function(evt) { changeState(GameStates.MAIN_MENU); });
+    menubtn.on("click", function(evt) { console.log("pressed"); });
     menubtn.on("mouseover", function(evt) { menubtn.graphics.beginFill("#6666ff").drawRoundRect(330, 430, 150, 40,10); });
     menubtn.on("mouseout", function(evt) { menubtn.graphics.beginFill("#33ccff").drawRoundRect(330, 430, 150, 40,10); });
-    menubtn.on("mousedown", function(evt) { changeState(GameStates.MAIN_MENU); });
+    menubtn.on("mousedown", function(evt) {  });
     
-    stage.addChild(menubtn); 
+    stage.addChild(menubtn);
     
     txt = new createjs.Text("Main Menu", "22px Arial", "#fff");
     txt.x = 350;
@@ -109,13 +63,20 @@ function displayScore(){
 }
 
 function startGame() {
+    stage.addChild(titleScreen);
     drawInfoButton();
     drawPlayButton();
 }
 
 function playGame() {
+    titleScreen.visible = false;
+    stage.addChild(backgroundScreen);
     displaySprites();
     
+}
+
+function info(){
+    drawMenuButton();
 }
 
 function gameOver() {
@@ -123,32 +84,36 @@ function gameOver() {
 }
 
 function displaySprites() {
-    walk.x=0;
+    walk.x=150;
     walk.y=450;
-    walk.gotoAndPlay("walkRight");
+    //walk.scaleX = -1;
     stage.addChild(walk);   
 }
 
-
-function main() {
-    setupCanvas();
-    loadFiles();
-    mouseInit();  
-}
-
-var FPS = 30;
-function loop() {
-    walk.x+=3;
-    if(createjs.Ticker.getTime() > 5000){
-        changeState(GameStates.GAME_OVER);   
+var walking = false;
+function walkRight() {
+    if (!walking)
+    {
+        walk.gotoAndPlay("walkRight");
     }
-    stage.update();
+    walk.x += 3;
+    stage.addChild(walk);
 }
-createjs.Ticker.addEventListener("tick", loop);
-createjs.Ticker.setFPS(FPS);
+function walkLeft(){
+    if (!walking)
+    {
+        walk.gotoAndPlay("walkLeft");
+    }
+    walk.x-=3;
+    stage.addChild(walk);
+}
+function standLeft(){
+        walk.gotoAndPlay("standRight");
+    stage.addChild(walk);
+}
+function standRight(){
+    walk.gotoAndPlay("standLeft");
+    stage.addChild(walk);
+}
 
-if( !!(window.addEventListener)) {
-    window.addEventListener ("DOMContentLoaded", main);
-}else{ //MSIE
-    window.attachEvent("onload", main);
-}
+
