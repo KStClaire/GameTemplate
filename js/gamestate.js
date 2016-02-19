@@ -11,8 +11,7 @@ function changeState (gamestate) {
                startGame();
             break;
         case GameStates.INSTRUCTIONS:
-              //  stage.addChild(instructionScreen);
-               // info();
+                info();
             break;
         case GameStates.PLAY_GAME:
               //  stage.addChild(backgroundScreen);

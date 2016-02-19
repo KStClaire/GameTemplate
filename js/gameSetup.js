@@ -24,8 +24,8 @@ var KEYCODE_DOWN = 83;
 function handleKeyDown(evt) {
     if(!evt){ var evt = window.event; }  //browser compatibility
     switch(evt.keyCode) {
-        case KEYCODE_LEFT:  walkLeft(); walking=true; return false;
-        case KEYCODE_RIGHT: walkRight(); walking=true; return false;
+        case KEYCODE_LEFT:  walkLeft(); return false;
+        case KEYCODE_RIGHT: walkRight(); return false;
         case KEYCODE_UP:    console.log(evt.keyCode+" w down"); return false;
         case KEYCODE_DOWN:  console.log(evt.keyCode+" s down"); return false;
     }
@@ -33,8 +33,8 @@ function handleKeyDown(evt) {
 function handleKeyUp(evt) {
     if(!evt){ var evt = window.event; }  //browser compatibility
     switch(evt.keyCode) {
-        case KEYCODE_LEFT:	standLeft(); walking=false; break;
-        case KEYCODE_RIGHT: standRight(); walking=false; break;
+        case KEYCODE_LEFT:	standLeft(); break;
+        case KEYCODE_RIGHT: standRight(); break;
         case KEYCODE_UP:	console.log(evt.keyCode+" up"); break;
         case KEYCODE_DOWN:	console.log(evt.keyCode+" up"); break;
     }

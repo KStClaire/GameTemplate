@@ -76,6 +76,7 @@ function playGame() {
 }
 
 function info(){
+    stage.addChild(instructionScreen);
     drawMenuButton();
 }
 
@@ -91,29 +92,34 @@ function displaySprites() {
 }
 
 var walking = false;
+
 function walkRight() {
     if (!walking)
     {
         walk.gotoAndPlay("walkRight");
+        walking = true;
     }
     walk.x += 3;
-    stage.addChild(walk);
+   // stage.addChild(walk);
 }
 function walkLeft(){
     if (!walking)
     {
         walk.gotoAndPlay("walkLeft");
+        walking = true;
     }
     walk.x-=3;
-    stage.addChild(walk);
+   // stage.addChild(walk);
 }
 function standLeft(){
-        walk.gotoAndPlay("standRight");
-    stage.addChild(walk);
+    walk.gotoAndPlay("standLeft");
+    walking = false;
+   // stage.addChild(walk);
 }
 function standRight(){
-    walk.gotoAndPlay("standLeft");
-    stage.addChild(walk);
+    walk.gotoAndPlay("standRight");
+    walking = false;
+   // stage.addChild(walk);
 }
 
 
